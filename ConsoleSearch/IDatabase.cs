@@ -12,23 +12,24 @@ namespace ConsoleSearch
         List<int> GetWordIds(string[] query, out List<string> outIgnored);
 
         /// <summary>
-        /// Get document by its id
+        /// Get document details by its id
         /// </summary>
         BEDocument GetDocDetails(int docId);
 
         /// <summary>
         /// Perform the essential search for documents. It will return
-        /// a list of KeyValuePairs - the key is the id of the
-        /// document, and value is the number of words from the query
+        /// a list of pairs - the docId is the id of the
+        /// document, and hits counts number of words from the query
         /// contained in the document.
+        /// Ordered decending by hits
         /// </summary>
-        List<KeyValuePair<int, int>> GetDocuments(List<int> wordIds);
+        List<(int docId, int hits)> GetDocuments(List<int> wordIds);
 
         /// <summary>
         /// Return all id of words, contained in [wordIds], but not
         /// present in the document with id [docId]
         /// </summary>
-        List<int> getMissing(int docId, List<int> wordIds);
+        List<int> GetMissing(int docId, List<int> wordIds);
 
         /// <summary>
         /// Convert a list of word id's to a list of the value of the

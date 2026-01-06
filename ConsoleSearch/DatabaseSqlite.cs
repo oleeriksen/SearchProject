@@ -38,9 +38,9 @@ namespace ConsoleSearch
 
 
         // key is the id of the document, the value is number of search words in the document
-        public List<KeyValuePair<int, int>> GetDocuments(List<int> wordIds)
+        public List<(int docId, int hits)> GetDocuments(List<int> wordIds)
         {
-            var res = new List<KeyValuePair<int, int>>();
+            var res = new List<(int docId, int hits)>();
 
             /* Example sql statement looking for doc id's that
                contain words with id 2 and 3
@@ -66,7 +66,7 @@ namespace ConsoleSearch
                     var docId = reader.GetInt32(0);
                     var count = reader.GetInt32(1);
 
-                    res.Add(new KeyValuePair<int, int>(docId, count));
+                    res.Add((docId, count));
                 }
             }
 
@@ -121,7 +121,7 @@ namespace ConsoleSearch
 
         /* Return a list of id's for words; all them among wordIds, but not present in the document
          */
-        public List<int> getMissing(int docId, List<int> wordIds)
+        public List<int> GetMissing(int docId, List<int> wordIds)
         {
             var sql = "SELECT wordId FROM Occ where ";
             sql += "wordId in " + AsString(wordIds) + " AND docId = " + docId;
