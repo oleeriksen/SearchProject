@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Shared;
 
-namespace Indexer
-{
+namespace Indexer;
     public class App
     {
         public void Run()
@@ -46,4 +45,3 @@ namespace Indexer
             return GetDatabase();
         }
     }
-}

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using Shared.Model;
 
-namespace ConsoleSearch
-{
+namespace ConsoleSearch;
     public class SearchLogic
     {
         IDatabase mDatabase;
@@ -50,4 +49,3 @@ namespace ConsoleSearch
             return new SearchResult(query, docIds.Count, docresult, ignored, DateTime.Now - start);
         }
     }
-}

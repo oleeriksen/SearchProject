@@ -4,8 +4,8 @@ using Shared;
 using Shared.Model;
 using Microsoft.Data.Sqlite;
 
-namespace ConsoleSearch
-{
+namespace ConsoleSearch;
+
     public class DatabaseSqlite : IDatabase
     {
         private SqliteConnection _connection;
@@ -187,4 +187,4 @@ namespace ConsoleSearch
             return res;
         }
     }
-}
+

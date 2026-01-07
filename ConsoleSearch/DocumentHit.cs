@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using Shared.Model;
 
-namespace ConsoleSearch
-{
+namespace ConsoleSearch;
     public class DocumentHit
     {
         public DocumentHit(BEDocument doc, int noOfHits, List<string> missing)
@@ -19,4 +18,4 @@ namespace ConsoleSearch
 
         public List<string> Missing { get;  }
     }
-}
+

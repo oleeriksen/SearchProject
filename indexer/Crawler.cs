@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using Shared.Model;
 
-namespace Indexer
-{
+namespace Indexer;
+
     public class Crawler
     {
         private readonly char[] separators = " \\\n\t\"$'!,?;.:-_**+=)([]{}<>/@&%€#".ToCharArray();
@@ -12,7 +12,7 @@ namespace Indexer
          * chars that does not contain any char from separators */
 
         private Dictionary<string, int> words = new Dictionary<string, int>();
-        /* Will contain all words from files during indexing - thet key is the 
+        /* Will contain all words from files during indexing - the key is the 
          * value of the word and the value is its id in the database */
 
         private int documentCounter = 0;
@@ -22,8 +22,7 @@ namespace Indexer
 
         public Crawler(IDatabase db){ mdatabase = db; }
 
-        //Return a dictionary containing all words (as the key)in the file
-        // [f] and the value is the number of occurrences of the key in file.
+        //Return a set of words in the file.
         private ISet<string> ExtractWordsInFile(FileInfo f)
         {
             ISet<string> res = new HashSet<string>();
@@ -89,4 +88,4 @@ namespace Indexer
 
         
     }
-}
+

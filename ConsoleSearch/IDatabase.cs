@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Shared.Model;
 
-namespace ConsoleSearch
-{
+namespace ConsoleSearch;
     public interface IDatabase
     {
         /// <summary>
@@ -36,4 +35,3 @@ namespace ConsoleSearch
         /// </summary>
         List<string> WordsFromIds(List<int> wordIds);
     }
-}

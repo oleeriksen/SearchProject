@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Shared.Model;
 
-namespace Indexer
-{
+namespace Indexer;
     public interface IDatabase
     {
         //Get all words with key as the value, and the value as the id 
@@ -20,4 +19,3 @@ namespace Indexer
 
         void InsertAllOcc(int docId, ISet<int> wordIds);
     }
-}

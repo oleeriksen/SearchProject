@@ -1,7 +1,6 @@
 ﻿using System;
 
-namespace ConsoleSearch
-{
+namespace ConsoleSearch;
     public class App
     {
 
@@ -51,4 +50,4 @@ namespace ConsoleSearch
 
         string ArrayAsString(string[] s) => s.Length == 0?"[]":$"[{String.Join(',', s)}]";
     }
-}
+

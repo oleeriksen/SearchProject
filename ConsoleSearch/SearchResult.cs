@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using Shared.Model;
 
-namespace ConsoleSearch
-{
+namespace ConsoleSearch;
     /*
      * A data class representing the result of a search.
      * Hits is the total number of documents containing at least one word from the query.
@@ -33,4 +32,4 @@ namespace ConsoleSearch
 
         public TimeSpan TimeUsed { get;  }
     }
-}
+

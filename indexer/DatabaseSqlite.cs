@@ -4,8 +4,8 @@ using Shared.Model;
 using Shared;
 using Microsoft.Data.Sqlite;
 
-namespace Indexer
-{
+namespace Indexer;
+
     public class DatabaseSqlite : IDatabase
     {
         private SqliteConnection _connection;
@@ -182,4 +182,4 @@ namespace Indexer
             }
         }
     }
-}
+

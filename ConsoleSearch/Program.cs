@@ -1,7 +1,6 @@
 ﻿using System;
 
-namespace ConsoleSearch
-{
+namespace ConsoleSearch;
     class Program
     {
         static void Main(string[] args)
@@ -9,4 +8,4 @@ namespace ConsoleSearch
             new App().Run();
         }
     }
-}
+
