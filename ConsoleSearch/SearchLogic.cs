@@ -32,7 +32,7 @@ namespace ConsoleSearch;
             // get ids for the first maxAmount             
             var top = new List<int>();
             foreach (var p in docIds.GetRange(0, Math.Min(maxAmount, docIds.Count)))
-                top.Add(p.Key);
+                top.Add(p.docId);
 
             // compose the result.
             // all the documentHit
@@ -41,9 +41,9 @@ namespace ConsoleSearch;
             foreach (var docId in top)
             {
                 BEDocument doc = mDatabase.GetDocDetails(docId);
-                var missing = mDatabase.WordsFromIds(mDatabase.getMissing(doc.mId, wordIds));
+                var missing = mDatabase.WordsFromIds(mDatabase.GetMissing(doc.mId, wordIds));
                 missing.AddRange(ignored);
-                docresult.Add(new DocumentHit(doc, docIds[idx++].Value, missing));
+                docresult.Add(new DocumentHit(doc, docIds[idx++].hits, missing));
             }
 
             return new SearchResult(query, docIds.Count, docresult, ignored, DateTime.Now - start);
