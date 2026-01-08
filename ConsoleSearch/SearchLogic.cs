@@ -7,8 +7,7 @@ namespace ConsoleSearch;
     {
         IDatabase mDatabase;
 
-        public SearchLogic(IDatabase database)
-        {
+        public SearchLogic(IDatabase database) {
             mDatabase = database;
         }
 
@@ -24,8 +23,13 @@ namespace ConsoleSearch;
             // Convert words to wordids
             var wordIds = mDatabase.GetWordIds(query, out ignored);
 
-            if (wordIds.Count == 0) // no words know in index
-                 return new SearchResult(query, 0, new List<DocumentHit>(), ignored, DateTime.Now - start);
+            if (wordIds.Count == 0) // no words present in index
+                 return new SearchResult { Query = query, 
+                                           NoOfHits = 0,
+                                           DocumentHits = new List<DocumentHit>(), 
+                                           Ignored = ignored, 
+                                           TimeUsed = DateTime.Now - start};
+            
             // perform the search - get all docIds
             var docIds =  mDatabase.GetDocuments(wordIds);
 
@@ -43,9 +47,14 @@ namespace ConsoleSearch;
                 BEDocument doc = mDatabase.GetDocDetails(docId);
                 var missing = mDatabase.WordsFromIds(mDatabase.GetMissing(doc.mId, wordIds));
                 missing.AddRange(ignored);
-                docresult.Add(new DocumentHit(doc, docIds[idx++].hits, missing));
+                var docHit = new DocumentHit { Document = doc, NoOfHits = docIds[idx++].hits, Missing = missing };
+                docresult.Add(docHit);
             }
 
-            return new SearchResult(query, docIds.Count, docresult, ignored, DateTime.Now - start);
+            return new SearchResult{ Query = query, 
+                                     NoOfHits = docIds.Count,
+                                     DocumentHits = docresult, 
+                                     Ignored = ignored, 
+                                     TimeUsed = DateTime.Now - start };
         }
     }

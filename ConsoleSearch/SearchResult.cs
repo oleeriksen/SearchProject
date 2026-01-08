@@ -13,23 +13,29 @@ namespace ConsoleSearch;
      */
     public class SearchResult
     {
-        public SearchResult(String[] query, int hits, List<DocumentHit> documents, List<string> ignored, TimeSpan timeUsed)
-        {
-            Query = query;
-            Hits = hits;
-            DocumentHits = documents;
-            Ignored = ignored;
-            TimeUsed = timeUsed;
-        }
+        
 
-        public String[] Query { get;  }
+        public String[] Query { get; set; }
 
-        public int Hits { get; }
 
-        public List<DocumentHit> DocumentHits { get;  }
+        /// <summary>
+        /// The total number of documents containing at least one word from the query
+        /// </summary>
+        public int NoOfHits { get; set; }
+        
+        /// <summary>
+        /// The most important details about the documents hit by the query
+        /// </summary>
+        public List<DocumentHit> DocumentHits { get; set; }
 
-        public List<string> Ignored { get; }
+        /// <summary>
+        /// Words from the query that is ignored because they are not in any document
+        /// </summary>
+        public List<string> Ignored { get; set; }
 
-        public TimeSpan TimeUsed { get;  }
+        /// <summary>
+        /// The care time used for the search
+        /// </summary>
+        public TimeSpan TimeUsed { get; set; }
     }
 

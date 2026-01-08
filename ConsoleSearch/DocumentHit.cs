@@ -5,17 +5,20 @@ using Shared.Model;
 namespace ConsoleSearch;
     public class DocumentHit
     {
-        public DocumentHit(BEDocument doc, int noOfHits, List<string> missing)
-        {
-            Document = doc;
-            NoOfHits = noOfHits;
-            Missing = missing;
-        }
+        /// <summary>
+        /// Represent a document in a search result. 
+        /// </summary>
 
-        public BEDocument Document { get;  }
+        public BEDocument Document { get; set; }
 
-        public int NoOfHits { get;  }
+        /// <summary>
+        /// The number of words from the query that is in the document
+        /// </summary>
+        public int NoOfHits { get; set; }
 
-        public List<string> Missing { get;  }
+        /// <summary>
+        /// The words from the query, that is not present in the document
+        /// </summary>
+        public List<string> Missing { get; set; }
     }
 
