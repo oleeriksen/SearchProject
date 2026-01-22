@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Shared;
 
 namespace Indexer;
@@ -26,10 +27,8 @@ namespace Indexer;
             Console.WriteLine($"Number of different words: {all.Count}");
             int count = 10;
             Console.WriteLine($"The first {count} is:");
-            foreach (var p in all) {
+            foreach (var p in all.Take(count)) {
                 Console.WriteLine("<" + p.Key + ", " + p.Value + ">");
-                count--;
-                if (count == 0) break;
             }
         }
 
