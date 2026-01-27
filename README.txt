@@ -1,7 +1,4 @@
-﻿Version 1.1: 01-09-2025
-Postgres is added as an option for database engine.
-
-Version 1: 04-08-2025
+﻿Version 1: 21-01-2026
 
 This codebase is s PoC seachengine that consist of two programs and a class library.
 
@@ -20,6 +17,8 @@ and the ConsoleSearch. It contains:
 - Paths containing a static path the database (used by both the indexer (write-only), and
 the search program (read-only).
 - BEDocument (BE for Business Entity) - a class representing a document.
+
+Support for using either Sqlite or Postgres as database engine.
 
 
 
