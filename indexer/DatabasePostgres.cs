@@ -118,16 +118,16 @@ public class DatabasePostgres : IDatabase
                     "INSERT INTO document(id, url, idxTime, creationTime) VALUES(@id,@url, @idxTime, @creationTime)");
             insertCmd.Connection = _connection;
 
-            var pId = new NpgsqlParameter("id", doc.mId);
+            var pId = new NpgsqlParameter("id", doc.Id);
             insertCmd.Parameters.Add(pId);
 
-            var pUrl = new NpgsqlParameter("url", doc.mUrl);
+            var pUrl = new NpgsqlParameter("url", doc.Url);
             insertCmd.Parameters.Add(pUrl);
 
-            var pIdxTime = new NpgsqlParameter("idxTime", doc.mIdxTime);
+            var pIdxTime = new NpgsqlParameter("idxTime", doc.IdxTime);
             insertCmd.Parameters.Add(pIdxTime);
 
-            var pCreationTime = new NpgsqlParameter("creationTime", doc.mCreationTime);
+            var pCreationTime = new NpgsqlParameter("creationTime", doc.CreationTime);
             insertCmd.Parameters.Add(pCreationTime);
 
             insertCmd.ExecuteNonQuery();

@@ -45,7 +45,7 @@ namespace ConsoleSearch;
             foreach (var docId in top)
             {
                 BEDocument doc = mDatabase.GetDocDetails(docId);
-                var missing = mDatabase.WordsFromIds(mDatabase.GetMissing(doc.mId, wordIds));
+                var missing = mDatabase.WordsFromIds(mDatabase.GetMissing(doc.Id, wordIds));
                 missing.AddRange(ignored);
                 var docHit = new DocumentHit { Document = doc, NoOfHits = docIds[idx++].hits, Missing = missing };
                 docresult.Add(docHit);

@@ -61,10 +61,10 @@ namespace Indexer;
                 {
                     documentCounter++;
                     BEDocument newDoc = new BEDocument{
-                        mId = documentCounter,
-                        mUrl = file.FullName,
-                        mIdxTime = DateTime.Now.ToString(),
-                        mCreationTime = file.CreationTime.ToString()
+                        Id = documentCounter,
+                        Url = file.FullName,
+                        IdxTime = DateTime.Now.ToString(),
+                        CreationTime = file.CreationTime.ToString()
                     };
                     
                     mdatabase.InsertDocument(newDoc);
@@ -78,7 +78,7 @@ namespace Indexer;
                     }
                     mdatabase.InsertAllWords(newWords);
 
-                    mdatabase.InsertAllOcc(newDoc.mId, GetWordIdFromWords(wordsInFile));
+                    mdatabase.InsertAllOcc(newDoc.Id, GetWordIdFromWords(wordsInFile));
 
 
                 }

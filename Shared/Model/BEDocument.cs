@@ -2,13 +2,13 @@
 namespace Shared.Model;
     public class BEDocument
     {
-        public int mId { get; set; }
+        public int Id { get; set; }
 
-        public String mUrl { get; set; }
+        public string Url { get; set; }
 
-        public String mIdxTime { get; set; }
+        public string IdxTime { get; set; }
 
-        public String mCreationTime { get; set; }
+        public string CreationTime { get; set; }
 
     }
 

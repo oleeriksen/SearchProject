@@ -108,7 +108,7 @@ public class DatabasePostgres : IDatabase
                     var idxTime = reader.GetString(2);
                     var creationTime = reader.GetString(3);
 
-                    return new BEDocument { mId = id, mUrl = url, mIdxTime = idxTime, mCreationTime = creationTime };
+                    return new BEDocument { Id = id, Url = url, IdxTime = idxTime, CreationTime = creationTime };
                 }
             }
             return null;

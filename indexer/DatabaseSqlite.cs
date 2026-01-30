@@ -125,16 +125,16 @@ namespace Indexer;
                     "INSERT INTO document(id, url, idxTime, creationTime) VALUES(@id,@url, @idxTime, @creationTime)");
             insertCmd.Connection = _connection;
 
-            var pId = new SqliteParameter("id", doc.mId);
+            var pId = new SqliteParameter("id", doc.Id);
             insertCmd.Parameters.Add(pId);
 
-            var pUrl = new SqliteParameter("url", doc.mUrl);
+            var pUrl = new SqliteParameter("url", doc.Url);
             insertCmd.Parameters.Add(pUrl);
 
-            var pIdxTime = new SqliteParameter("idxTime", doc.mIdxTime);
+            var pIdxTime = new SqliteParameter("idxTime", doc.IdxTime);
             insertCmd.Parameters.Add(pIdxTime);
 
-            var pCreationTime = new SqliteParameter("creationTime", doc.mCreationTime);
+            var pCreationTime = new SqliteParameter("creationTime", doc.CreationTime);
             insertCmd.Parameters.Add(pCreationTime);
 
             insertCmd.ExecuteNonQuery();

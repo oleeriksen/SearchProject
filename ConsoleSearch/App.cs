@@ -27,8 +27,8 @@ namespace ConsoleSearch;
                 
                 int idx = 1;
                 foreach (var doc in result.DocumentHits) {
-                    Console.WriteLine($"{idx} : {doc.Document.mUrl} -- contains {doc.NoOfHits} search terms");
-                    Console.WriteLine("Index time: " + doc.Document.mIdxTime);
+                    Console.WriteLine($"{idx} : {doc.Document.Url} -- contains {doc.NoOfHits} search terms");
+                    Console.WriteLine("Index time: " + doc.Document.IdxTime);
                     Console.WriteLine($"Missing: {ArrayAsString(doc.Missing.ToArray())}");
                     idx++;
                 }
