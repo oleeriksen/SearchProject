@@ -110,8 +110,8 @@ namespace ConsoleSearch;
                 {
                     var id = reader.GetInt32(0);
                     var url = reader.GetString(1);
-                    var idxTime = reader.GetString(2);
-                    var creationTime = reader.GetString(3);
+                    var idxTime = reader.GetDateTime(2);
+                    var creationTime = reader.GetDateTime(3);
 
                     return new BEDocument { Id = id, Url = url, IdxTime = idxTime, CreationTime = creationTime };
                 }

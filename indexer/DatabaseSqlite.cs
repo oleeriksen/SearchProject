@@ -27,7 +27,7 @@ namespace Indexer;
             Execute("DROP TABLE IF EXISTS Occ");
 
             Execute("DROP TABLE IF EXISTS document");
-            Execute("CREATE TABLE document(id INTEGER PRIMARY KEY, url TEXT, idxTime TEXT, creationTime TEXT)");
+            Execute("CREATE TABLE document(id INTEGER PRIMARY KEY, url TEXT, idxTime DATE, creationTime DATE)");
 
             Execute("DROP TABLE IF EXISTS word");
             Execute("CREATE TABLE word(id INTEGER PRIMARY KEY, name VARCHAR(50))");

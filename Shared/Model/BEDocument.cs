@@ -6,9 +6,9 @@ namespace Shared.Model;
 
         public string Url { get; set; }
 
-        public string IdxTime { get; set; }
+        public DateTime IdxTime { get; set; }
 
-        public string CreationTime { get; set; }
+        public DateTime CreationTime { get; set; }
 
     }
 

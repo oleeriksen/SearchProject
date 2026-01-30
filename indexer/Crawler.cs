@@ -63,8 +63,8 @@ namespace Indexer;
                     BEDocument newDoc = new BEDocument{
                         Id = documentCounter,
                         Url = file.FullName,
-                        IdxTime = DateTime.Now.ToString(),
-                        CreationTime = file.CreationTime.ToString()
+                        IdxTime = DateTime.Now,
+                        CreationTime = file.CreationTime
                     };
                     
                     mdatabase.InsertDocument(newDoc);
