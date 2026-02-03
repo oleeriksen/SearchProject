@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Shared;
 using Shared.Model;
 using Microsoft.Data.Sqlite;
@@ -169,22 +170,48 @@ namespace ConsoleSearch;
             return result;
         }
 
-        public List<int> GetWordIds(string[] query, out List<string> outIgnored)
+        public List<int> GetWordIds(string[] query, bool ignoreCases, out List<string> outIgnored)
         {
             if (mWords == null)
                 mWords = GetAllWords();
             var res = new List<int>();
             var ignored = new List<string>();
+            if (!ignoreCases)
+            {
+                foreach (var aWord in query)
+                {
+                    if (mWords.ContainsKey(aWord))
+                        res.Add(mWords[aWord]);
+                    else
+                        ignored.Add(aWord);
+                }
 
+                outIgnored = ignored;
+                return res;
+            }
+            // here we know that cases must be ignored
+            //step 1: query in lowercase
+            query = query.Select((w) => w.ToLower()).ToArray();
+            
+            // step 2: goes through all words to see if they are in query
+            foreach (var aWord in mWords)
+            {
+                if ( query.Contains(aWord.Key.ToLower()) )
+                     res.Add(aWord.Value);
+            }
+           
             foreach (var aWord in query)
             {
-                if (mWords.ContainsKey(aWord))
-                    res.Add(mWords[aWord]);
-                else
+                if (!mWords.ContainsKey(aWord))
                     ignored.Add(aWord);
             }
             outIgnored = ignored;
             return res;
+        }
+
+        private bool Match(string s1, string s2, bool ignoreCases)
+        {
+            return ignoreCases ? s1.Equals(s2, StringComparison.InvariantCultureIgnoreCase) : s1.Equals(s2);
         }
     }
 

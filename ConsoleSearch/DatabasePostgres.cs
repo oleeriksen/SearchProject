@@ -166,7 +166,7 @@ public class DatabasePostgres : IDatabase
             return result;
         }
 
-        public List<int> GetWordIds(string[] query, out List<string> outIgnored)
+        public List<int> GetWordIds(string[] query, bool igonoreCases, out List<string> outIgnored)
         {
             if (mWords == null)
                 mWords = GetAllWords();

@@ -5,6 +5,9 @@ using Shared.Model;
 namespace ConsoleSearch;
     public class SearchLogic
     {
+
+        private bool IgnoreCases = true;
+        
         IDatabase mDatabase;
 
         public SearchLogic(IDatabase database) {
@@ -21,7 +24,7 @@ namespace ConsoleSearch;
             DateTime start = DateTime.Now;
 
             // Convert words to wordids
-            var wordIds = mDatabase.GetWordIds(query, out ignored);
+            var wordIds = mDatabase.GetWordIds(query, IgnoreCases, out ignored);
 
             if (wordIds.Count == 0) // no words present in index
                  return new SearchResult { Query = query, 
