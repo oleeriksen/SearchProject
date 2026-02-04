@@ -74,12 +74,9 @@ namespace ConsoleSearch;
         }
 
         private string AsString(List<int> x) => $"({string.Join(',', x)})";
+        
 
-
-
-       
-
-        private Dictionary<string, int> GetAllWords()
+        public Dictionary<string, int> GetAllWords()
         {
             Dictionary<string, int> res = new Dictionary<string, int>();
 
@@ -121,7 +118,7 @@ namespace ConsoleSearch;
 
         /* Return a list of id's for words; all them among wordIds, but not present in the document
          */
-        public List<int> GetMissing(int docId, List<int> wordIds)
+        public List<string> GetMissing(int docId, List<int> wordIds)
         {
             var sql = "SELECT wordId FROM Occ where ";
             sql += "wordId in " + AsString(wordIds) + " AND docId = " + docId;
@@ -145,10 +142,10 @@ namespace ConsoleSearch;
                 result.Remove(w);
 
 
-            return result;
+            return WordsFromIds(result);
         }
 
-        public List<string> WordsFromIds(List<int> wordIds)
+        private List<string> WordsFromIds(List<int> wordIds)
         {
             var sql = "SELECT name FROM Word where ";
             sql += "id in " + AsString(wordIds);
@@ -168,23 +165,6 @@ namespace ConsoleSearch;
             }
             return result;
         }
-
-        public List<int> GetWordIds(string[] query, out List<string> outIgnored)
-        {
-            if (mWords == null)
-                mWords = GetAllWords();
-            var res = new List<int>();
-            var ignored = new List<string>();
-
-            foreach (var aWord in query)
-            {
-                if (mWords.ContainsKey(aWord))
-                    res.Add(mWords[aWord]);
-                else
-                    ignored.Add(aWord);
-            }
-            outIgnored = ignored;
-            return res;
-        }
+        
     }
 

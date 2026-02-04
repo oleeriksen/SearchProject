@@ -5,7 +5,11 @@ using Shared.Model;
 namespace ConsoleSearch;
     public class SearchLogic
     {
-        IDatabase mDatabase;
+        private IDatabase mDatabase;
+
+        // all words from the database in a cache. The key is the
+        // word itself and the value is the id.
+        private Dictionary<string, int> mWords;
 
         public SearchLogic(IDatabase database) {
             mDatabase = database;
@@ -21,7 +25,7 @@ namespace ConsoleSearch;
             DateTime start = DateTime.Now;
 
             // Convert words to wordids
-            var wordIds = mDatabase.GetWordIds(query, out ignored);
+            var wordIds = GetWordIds(query, out ignored);
 
             if (wordIds.Count == 0) // no words present in index
                  return new SearchResult { Query = query, 
@@ -45,7 +49,7 @@ namespace ConsoleSearch;
             foreach (var docId in top)
             {
                 BEDocument doc = mDatabase.GetDocDetails(docId);
-                var missing = mDatabase.WordsFromIds(mDatabase.GetMissing(doc.Id, wordIds));
+                var missing = mDatabase.GetMissing(doc.Id, wordIds);
                 missing.AddRange(ignored);
                 var docHit = new DocumentHit { Document = doc, NoOfHits = docIds[idx++].hits, Missing = missing };
                 docresult.Add(docHit);
@@ -56,5 +60,27 @@ namespace ConsoleSearch;
                                      DocumentHits = docresult, 
                                      Ignored = ignored, 
                                      TimeUsed = DateTime.Now - start };
+        }
+        
+        /// <summary>
+        /// Get id's for words in [query]. [outIgnored] contains those word from query that is
+        /// not present in any document.
+        /// </summary>
+        private List<int> GetWordIds(string[] query, out List<string> outIgnored)
+        {
+            if (mWords == null)
+                mWords = mDatabase.GetAllWords();
+            var res = new List<int>();
+            var ignored = new List<string>();
+
+            foreach (var aWord in query)
+            {
+                if (mWords.ContainsKey(aWord))
+                    res.Add(mWords[aWord]);
+                else
+                    ignored.Add(aWord);
+            }
+            outIgnored = ignored;
+            return res;
         }
     }

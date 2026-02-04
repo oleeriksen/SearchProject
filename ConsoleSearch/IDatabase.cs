@@ -4,11 +4,7 @@ using Shared.Model;
 namespace ConsoleSearch;
     public interface IDatabase
     {
-        /// <summary>
-        /// Get id's for words in [query]. [outIgnored] contains those word from query that is
-        /// not present in any document.
-        /// </summary>
-        List<int> GetWordIds(string[] query, out List<string> outIgnored);
+        
 
         /// <summary>
         /// Get document details by its id
@@ -18,21 +14,22 @@ namespace ConsoleSearch;
         /// <summary>
         /// Perform the essential search for documents. It will return
         /// a list of pairs - the docId is the id of the
-        /// document, and hits counts number of words from the query
+        /// document, and hits is the number of words from the query
         /// contained in the document.
         /// Ordered decending by hits
         /// </summary>
         List<(int docId, int hits)> GetDocuments(List<int> wordIds);
 
         /// <summary>
-        /// Return all id of words, contained in [wordIds], but not
+        /// Return all words, contained in [wordIds], but not
         /// present in the document with id [docId]
         /// </summary>
-        List<int> GetMissing(int docId, List<int> wordIds);
+        List<string> GetMissing(int docId, List<int> wordIds);
+        
 
         /// <summary>
-        /// Convert a list of word id's to a list of the value of the
-        /// words
         /// </summary>
-        List<string> WordsFromIds(List<int> wordIds);
+        /// <returns>all words - the key is the word itself, and value is the id</returns>
+        Dictionary<string, int> GetAllWords();
+        
     }
