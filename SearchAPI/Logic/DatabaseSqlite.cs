@@ -1,23 +1,29 @@
+﻿using System;
 using System.Collections.Generic;
-
-
-namespace ConsoleSearch;
 using Shared;
 using Shared.Model;
-using Npgsql;
+using Microsoft.Data.Sqlite;
 
+namespace SearchAPI.Logic;
 
-public class DatabasePostgres : IDatabase
-{
-    //private SqliteConnection _connection;
-    private NpgsqlConnection _connection;
+    public class DatabaseSqlite : IDatabase
+    {
+        private SqliteConnection _connection;
 
         private Dictionary<string, int> mWords = null;
 
-        public DatabasePostgres()
+        public DatabaseSqlite()
         {
-            _connection = new NpgsqlConnection(Paths.POSTGRES_DATABASE);
+            var connectionStringBuilder = new SqliteConnectionStringBuilder();
+
+            connectionStringBuilder.DataSource = Paths.SQLITE_DATABASE;
+
+
+            _connection = new SqliteConnection(connectionStringBuilder.ConnectionString);
+
             _connection.Open();
+
+
         }
 
         private void Execute(string sql)
@@ -60,7 +66,7 @@ public class DatabasePostgres : IDatabase
                     var docId = reader.GetInt32(0);
                     var count = reader.GetInt32(1);
 
-                    res.Add( (docId, count) );
+                    res.Add((docId, count));
                 }
             }
 
@@ -68,7 +74,7 @@ public class DatabasePostgres : IDatabase
         }
 
         private string AsString(List<int> x) => $"({string.Join(',', x)})";
-    
+        
 
         public Dictionary<string, int> GetAllWords()
         {
@@ -89,10 +95,9 @@ public class DatabasePostgres : IDatabase
             }
             return res;
         }
-
+        
         public BEDocument GetDocDetails(int docId)
         {
-
             var selectCmd = _connection.CreateCommand();
             selectCmd.CommandText = $"SELECT * FROM document where id = {docId}";
 
@@ -142,16 +147,14 @@ public class DatabasePostgres : IDatabase
 
         private List<string> WordsFromIds(List<int> wordIds)
         {
-            List<string> result = new List<string>();
-
-            if (wordIds.Count == 0)
-                return result;
             var sql = "SELECT name FROM Word where ";
             sql += "id in " + AsString(wordIds);
 
             var selectCmd = _connection.CreateCommand();
             selectCmd.CommandText = sql;
-            
+
+            List<string> result = new List<string>();
+
             using (var reader = selectCmd.ExecuteReader())
             {
                 while (reader.Read())
@@ -162,6 +165,6 @@ public class DatabasePostgres : IDatabase
             }
             return result;
         }
+        
+    }
 
-    
-}

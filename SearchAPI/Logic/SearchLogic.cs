@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Shared.Model;
 
-namespace ConsoleSearch;
+namespace SearchAPI.Logic;
     public class SearchLogic
     {
         private IDatabase mDatabase;

@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace ConsoleSearch;
     public class App
     {
 
-        public void Run()
+        public async Task Run()
         {
-            IDatabase db = GetDatabase();
-            SearchLogic mSearchLogic = new SearchLogic(db);
+            SearchLogicProxy mSearchLogic = new SearchLogicProxy();
             Console.WriteLine("Console Search");
             
             while (true)
@@ -19,7 +19,7 @@ namespace ConsoleSearch;
                 var query = input.Split(" ", StringSplitOptions.RemoveEmptyEntries);
                
 
-                var result = mSearchLogic.Search(query, 10);
+                var result = await mSearchLogic.Search(query, 10);
 
                 if (result.Ignored.Count > 0) {
                     Console.WriteLine($"Ignored: {string.Join(',', result.Ignored)}");
@@ -36,17 +36,7 @@ namespace ConsoleSearch;
             }
         }
         
-        private IDatabase GetDatabase()
-        {
-            Console.Write("Use SQLite (1) or Postgres (2) database?");
-            string input = Console.ReadLine();
-            if (input.Equals("1"))
-                return new DatabaseSqlite();
-            else if (input.Equals("2"))
-                return new DatabasePostgres();
-            Console.WriteLine("Wrong input - try again...");
-            return GetDatabase();
-        }
+       
 
         string ArrayAsString(string[] s) => s.Length == 0?"[]":$"[{String.Join(',', s)}]";
     }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Shared.Model;
 
-namespace ConsoleSearch;
+
+namespace Shared.Model;
     /*
      * A data class representing the result of a search.
      * Hits is the total number of documents containing at least one word from the query.
