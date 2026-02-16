@@ -1,0 +1,66 @@
+@page "/search"
+@page "/"
+@using Shared;
+@using Shared.Model
+@inject HttpClient Http
+
+<h1>Search</h1>
+
+<InputText @bind-Value="query"></InputText>
+<button @onclick="OnClickSearch">Search</button>
+
+@if (result != null)
+{
+    <p>Hits:  @result.NoOfHits <br /></p>
+
+    <p>Time used:  @result.TimeUsed.ToString()</p>
+    <table class="table">
+        <tbody>
+        @foreach (var dh in result.DocumentHits)
+        {
+            <tr>
+                <td>
+                    <a class="link-info" href="" @onclick="() => OnClickDocUrl(dh.Document.Url)" @onclick:preventDefault>
+                        @dh.Document.Url</a>
+                    (# hits: @dh.NoOfHits)
+                </td>
+
+            </tr>
+        }
+        </tbody>
+    </table>
+    <ModalDialog @ref="@modalDialog" Title="Indhold">
+        <div class="row">
+            <h3>@fileUrl</h3>
+            <hr>
+            <p>@fileContent</p>
+            <button class="btn btn-primary" @onclick="() => modalDialog.Close()">Close</button>
+        </div>
+    </ModalDialog>}
+@code {
+    private string fileUrl = "";
+    private string fileContent = "";
+
+    private string query = "";
+
+    private SearchLogicProxy mLogic = new SearchLogicProxy();
+
+    private SearchResult? result;
+
+    private async Task OnClickSearch()
+    {
+        result = await mLogic.Search(query.Split(" "), 10);
+    }
+
+    private async Task OnClickDocUrl(string url)
+    {
+        var uri = "file://" + url;
+        //var s = File.ReadAllText(url);
+        //var s = await Http.GetStringAsync(uri);
+        fileUrl = uri;
+        fileContent = await mLogic.GetFileContent(url);
+        modalDialog.Open();
+    }
+
+    private ModalDialog? modalDialog { get; set; }
+}

@@ -1,6 +1,7 @@
 using Shared.Model;
 using Microsoft.AspNetCore.Mvc;
 using SearchAPI.Logic;
+using System.IO;
 
 namespace SearchAPI.Controllers;
 
@@ -25,5 +26,16 @@ public class SearchController : ControllerBase
     {
         return Environment.GetEnvironmentVariable("id");
     }
+    
+    [HttpGet]
+    [Route("getfile")]
+    public string GetFile([FromQuery] string path)
+    {
+        var uri = "file://" + path;
+        var s = System.IO.File.ReadAllText(path);
+        //var s = await Http.GetStringAsync(uri);
+        return s;
+    }
+    
     
 }
