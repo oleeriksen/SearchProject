@@ -1,5 +1,6 @@
 @page "/search"
 @page "/"
+@using System.Text.RegularExpressions
 @using Shared;
 @using Shared.Model
 @inject HttpClient Http
@@ -33,10 +34,12 @@
         <div class="row">
             <h3>@fileUrl</h3>
             <hr>
-            <p>@fileContent</p>
+            <p>@((MarkupString)@fileContent)</p>
             <button class="btn btn-primary" @onclick="() => modalDialog.Close()">Close</button>
         </div>
-    </ModalDialog>}
+    </ModalDialog>
+    
+}
 @code {
     private string fileUrl = "";
     private string fileContent = "";
@@ -55,10 +58,12 @@
     private async Task OnClickDocUrl(string url)
     {
         var uri = "file://" + url;
-        //var s = File.ReadAllText(url);
-        //var s = await Http.GetStringAsync(uri);
         fileUrl = uri;
         fileContent = await mLogic.GetFileContent(url);
+        // mark all words from query...
+        foreach (var qWord in query.Split(" "))
+            fileContent = Regex.Replace(fileContent, qWord, $"<b>{qWord}</b>");
+
         modalDialog.Open();
     }
 

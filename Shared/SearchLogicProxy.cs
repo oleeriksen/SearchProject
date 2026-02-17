@@ -26,7 +26,8 @@ public class SearchLogicProxy
     public async Task<string> GetFileContent(string url)
     {
         var encodedurl = Uri.EscapeDataString(url);
-        var completeUrl = $"{serverEndPoint}/getfile?path={encodedurl}";
-        return await mHttp.GetStringAsync(completeUrl);
+        var completeUrl = $"{serverEndPoint}/file/get?path={encodedurl}";
+        var fileContent = await mHttp.GetStringAsync(completeUrl);
+        return fileContent;
     }
 }

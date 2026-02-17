@@ -33,7 +33,6 @@ public class SearchController : ControllerBase
     {
         var uri = "file://" + path;
         var s = System.IO.File.ReadAllText(path);
-        //var s = await Http.GetStringAsync(uri);
         return s;
     }
     
