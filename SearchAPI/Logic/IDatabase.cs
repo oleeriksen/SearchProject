@@ -26,6 +26,13 @@ namespace SearchAPI.Logic;
         /// </summary>
         List<string> GetMissing(int docId, List<int> wordIds);
         
+        
+        /// <summary>
+        /// Return all words, contained in [wordIds], and
+        /// present in the document with id [docId]
+        /// </summary>
+        List<string> GetHits(int docId, List<int> wordIds);
+        
 
         /// <summary>
         /// </summary>

@@ -11,9 +11,9 @@ namespace Shared.Model;
         public BEDocument Document { get; set; }
 
         /// <summary>
-        /// The number of words from the query that is in the document
+        /// The words from the query that is in the document
         /// </summary>
-        public int NoOfHits { get; set; }
+        public List<string> Hits { get; set; }
 
         /// <summary>
         /// The words from the query, that is not present in the document

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 namespace SearchAPI.Controllers;
 
-
+// Note: This controller must be moved to its own API. Clear need for a y-split.
 [ApiController]
 [Route("api/file")]
 public class FileController : ControllerBase

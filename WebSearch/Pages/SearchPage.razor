@@ -21,9 +21,9 @@
         {
             <tr>
                 <td>
-                    <a class="link-info" href="" @onclick="() => OnClickDocUrl(dh.Document.Url)" @onclick:preventDefault>
+                    <a class="link-info" href="" @onclick="() => OnClickDocUrl(dh)"  @onclick:preventDefault>
                         @dh.Document.Url</a>
-                    (# hits: @dh.NoOfHits)
+                    (# hits: @dh.Hits.Count)
                 </td>
 
             </tr>
@@ -32,7 +32,8 @@
     </table>
     <ModalDialog @ref="@modalDialog" Title="Indhold">
         <div class="row">
-            <h3>@fileUrl</h3>
+            <h3>@currentDocumentHit.Document.Url</h3>
+            <h4>Hits: @ListToString(currentDocumentHit.Hits) - missing: @ListToString(currentDocumentHit.Missing)</h4>
             <hr>
             <p>@((MarkupString)@fileContent)</p>
             <button class="btn btn-primary" @onclick="() => modalDialog.Close()">Close</button>
@@ -41,7 +42,9 @@
     
 }
 @code {
-    private string fileUrl = "";
+    // used by the modal dialog
+    private DocumentHit currentDocumentHit = EmptyDocumentHit(); 
+    
     private string fileContent = "";
 
     private string query = "";
@@ -50,22 +53,34 @@
 
     private SearchResult? result;
 
+    private static DocumentHit EmptyDocumentHit()
+    {
+        DocumentHit res = new();
+        res.Document = new();
+        res.Document.Url = "";
+        res.Missing = new();
+        res.Hits = new();
+        return res;
+    }
+
     private async Task OnClickSearch()
     {
         result = await mLogic.Search(query.Split(" "), 10);
     }
 
-    private async Task OnClickDocUrl(string url)
+    private async Task OnClickDocUrl(DocumentHit dh)
     {
-        var uri = "file://" + url;
-        fileUrl = uri;
-        fileContent = await mLogic.GetFileContent(url);
+        fileContent = await mLogic.GetFileContent(dh.Document.Url);
         // mark all words from query...
         foreach (var qWord in query.Split(" "))
             fileContent = Regex.Replace(fileContent, qWord, $"<b>{qWord}</b>");
 
+        currentDocumentHit = dh;
         modalDialog.Open();
     }
 
+    
     private ModalDialog? modalDialog { get; set; }
+    
+    private string ListToString(List<string> s) => s.Count == 0?"[]":$"[{String.Join(',', s)}]";
 }

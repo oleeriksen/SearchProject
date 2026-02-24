@@ -67,7 +67,12 @@ public class DatabasePostgres : IDatabase
         }
 
         private string AsString(List<int> x) => $"({string.Join(',', x)})";
-    
+
+
+        public List<string> GetHits(int docId, List<int> wordIds)
+        {
+            throw new NotImplementedException();
+        }
 
         public Dictionary<string, int> GetAllWords()
         {
