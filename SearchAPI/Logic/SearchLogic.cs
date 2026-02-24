@@ -9,7 +9,7 @@ namespace SearchAPI.Logic;
 
         // all words from the database in a cache. The key is the
         // word itself and the value is the id.
-        private Dictionary<string, int> mWords;
+        private Dictionary<string, int>? mWords;
 
         public SearchLogic(IDatabase database) {
             mDatabase = database;
@@ -50,8 +50,9 @@ namespace SearchAPI.Logic;
             {
                 BEDocument doc = mDatabase.GetDocDetails(docId);
                 var missing = mDatabase.GetMissing(doc.Id, wordIds);
+                var hits = mDatabase.GetHits(doc.Id, wordIds);
                 missing.AddRange(ignored);
-                var docHit = new DocumentHit { Document = doc, NoOfHits = docIds[idx++].hits, Missing = missing };
+                var docHit = new DocumentHit { Document = doc, Hits = hits, Missing = missing };
                 docresult.Add(docHit);
             }
 

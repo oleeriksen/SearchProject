@@ -74,7 +74,9 @@ namespace SearchAPI.Logic;
         }
 
         private string AsString(List<int> x) => $"({string.Join(',', x)})";
-        
+
+
+       
 
         public Dictionary<string, int> GetAllWords()
         {
@@ -145,6 +147,29 @@ namespace SearchAPI.Logic;
             return WordsFromIds(result);
         }
 
+        public List<string> GetHits(int docId, List<int> wordIds)
+        {
+            var sql = "SELECT wordId FROM Occ where ";
+            sql += "wordId in " + AsString(wordIds) + " AND docId = " + docId;
+            sql += " ORDER BY wordId;";
+
+            var selectCmd = _connection.CreateCommand();
+            selectCmd.CommandText = sql;
+
+            List<int> present = new List<int>();
+
+            using (var reader = selectCmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    var wordId = reader.GetInt32(0);
+                    present.Add(wordId);
+                }
+            }
+            
+            return WordsFromIds(present);
+        }
+        
         private List<string> WordsFromIds(List<int> wordIds)
         {
             var sql = "SELECT name FROM Word where ";
