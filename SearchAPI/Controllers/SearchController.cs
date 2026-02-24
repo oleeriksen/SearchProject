@@ -5,13 +5,13 @@ using SearchAPI.Logic;
 namespace SearchAPI.Controllers;
 
 [ApiController]
-[Route("api")]
+[Route("api/search")]
 public class SearchController : ControllerBase
 {
     private static IDatabase mDatabase = new DatabaseSqlite();
     
     [HttpGet]
-    [Route("search/{query}/{maxAmount}")]
+    [Route("{query}/{maxAmount}")]
     public SearchResult Search(string query, int maxAmount)
     {
         var logic = new SearchLogic(mDatabase);
@@ -19,11 +19,6 @@ public class SearchController : ControllerBase
         return result;
     }
 
-    [HttpGet]
-    [Route("ping")]
-    public string? Ping()
-    {
-        return Environment.GetEnvironmentVariable("id");
-    }
+    
     
 }
