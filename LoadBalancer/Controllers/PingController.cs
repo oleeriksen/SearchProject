@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace SearchAPI.Controllers;
+namespace LoadBalancer.Controllers;
 
 [ApiController]
 [Route("ping")]
