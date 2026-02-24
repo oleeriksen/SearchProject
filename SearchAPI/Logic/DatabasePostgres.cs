@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using Shared;
 
 
 namespace SearchAPI.Logic;
-using Shared;
 using Shared.Model;
 using Npgsql;
 
