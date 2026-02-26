@@ -8,7 +8,7 @@
       "applicationUrl": "http://localhost:5158",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "id": "Search API - ver 1.0 - instance A"
+        "id": "A"
       }
     },
     "http2": {
@@ -18,7 +18,7 @@
       "applicationUrl": "http://localhost:5159",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "id": "Search API - ver 1.0 - instance B"
+        "id": "B"
 
       }
     },
